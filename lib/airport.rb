@@ -1,12 +1,15 @@
+require_relative 'weather'
+
 class Airport
 
-  attr_reader :show_planes, :weather, :capacity
+  attr_reader :show_planes, :capacity
 
 DEFAULT_CAPACITY = 4
 
   def initialize(capacity=DEFAULT_CAPACITY)
     @show_planes = []
     @capacity = capacity
+    @weather = Weather.new
   end
 
   def land(plane)
@@ -14,10 +17,10 @@ DEFAULT_CAPACITY = 4
   end
 
   def plane_takeoff
-      show_planes.pop()
-  end
-
-  def weather
+    if @weather.weather == "STORMY"
+      raise "Sorry, the weather is stormy"
+    end
+      @show_planes.pop()
   end
 
 end
